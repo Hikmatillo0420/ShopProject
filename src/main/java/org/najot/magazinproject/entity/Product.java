@@ -31,5 +31,8 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<AcceptDocumentItem> documentItem;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private StoreProduct storeProduct;
+
 
 }

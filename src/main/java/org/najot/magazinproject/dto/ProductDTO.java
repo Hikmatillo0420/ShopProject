@@ -2,6 +2,7 @@ package org.najot.magazinproject.dto;
 
 import lombok.*;
 import org.najot.magazinproject.entity.AcceptDocumentItem;
+import org.najot.magazinproject.entity.StoreProduct;
 
 @Builder
 @Getter
@@ -14,5 +15,4 @@ public class ProductDTO {
     private Long CategoryId;
     private Long MeasureType;
     private Long amount;
-
 }
