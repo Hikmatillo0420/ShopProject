@@ -1,7 +1,7 @@
 package org.najot.magazinproject.controller;
 
 import org.najot.magazinproject.dto.CategoryDTO;
-import org.najot.magazinproject.service.CategoryService;
+import org.najot.magazinproject.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +11,26 @@ import java.util.List;
 @RequestMapping("/api/Category")
 public class CategoryCon {
     @Autowired
-    private CategoryService service;
+    private CategoryServiceImpl service;
     @GetMapping("/{id}")
     CategoryDTO getCategoryId(@PathVariable Long id){
-        return service.getCategoryById(id);
+        return service.getById(id);
     }
     @GetMapping()
     List<CategoryDTO> getAllCategory(){
-        return service.getAllCategory();
+        return service.getAll();
     }
     @PostMapping()
     CategoryDTO createCategory(@RequestBody CategoryDTO dto){
-        return service.createCategory(dto);
+        return service.create(dto);
     }
     @PutMapping("/{id}")
     CategoryDTO updateCategory(@PathVariable Long id,@RequestBody CategoryDTO dto){
-        return service.updateCategory(id, dto);
+        return service.update(id, dto);
     }
     @DeleteMapping({"/{id}"})
     void deleteCategory(@PathVariable Long id){
-        service.deleteCategoryById(id);
+        service.deleteById(id);
     }
 
 }

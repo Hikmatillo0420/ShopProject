@@ -5,13 +5,13 @@ import org.najot.magazinproject.entity.ProductPrice;
 import org.najot.magazinproject.mapper.ProductPriceMapper;
 import org.najot.magazinproject.repository.ProductPriceRepository;
 import org.najot.magazinproject.repository.ProductRepository;
-import org.najot.magazinproject.service.ProductPriceService;
+import org.najot.magazinproject.service.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class ProductPriceServiceImpl implements ProductPriceService {
+public class ProductPriceServiceImpl implements ServiceAll<ProductPriceDTO> {
     @Autowired
     private ProductPriceRepository repository;
     @Autowired
@@ -19,24 +19,24 @@ public class ProductPriceServiceImpl implements ProductPriceService {
     @Autowired
     private ProductRepository productRepository;
     @Override
-    public ProductPriceDTO getProductPriceById(Long id) {
+    public ProductPriceDTO getById(Long id) {
         return mapper.toDTO(repository.getReferenceById(id));
     }
 
     @Override
-    public List<ProductPriceDTO> getAllProductPrice() {
+    public List<ProductPriceDTO> getAll() {
         return mapper.toDTOs(repository.findAll());
     }
 
     @Override
-    public ProductPriceDTO createProductPrice(ProductPriceDTO productPriceDTO) {
+    public ProductPriceDTO create(ProductPriceDTO productPriceDTO) {
         return mapper.toDTO(repository
                 .save(mapper
                         .toEntity(productPriceDTO)));
     }
 
     @Override
-    public ProductPriceDTO updateProductPrice(Long id, ProductPriceDTO productPriceDTO) {
+    public ProductPriceDTO update(Long id, ProductPriceDTO productPriceDTO) {
         ProductPrice productPrice =repository.getReferenceById(id);
         productPrice.setId(productPriceDTO.getId());
         productPrice.setProduct(productRepository.getReferenceById(productPriceDTO.getPrice()));
@@ -48,7 +48,7 @@ public class ProductPriceServiceImpl implements ProductPriceService {
     }
 
     @Override
-    public void deleteProductPriceById(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }

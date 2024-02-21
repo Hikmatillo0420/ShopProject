@@ -3,18 +3,16 @@ package org.najot.magazinproject.service.impl;
 import org.najot.magazinproject.dto.ProductDTO;
 import org.najot.magazinproject.entity.Product;
 import org.najot.magazinproject.mapper.ProductMapper;
-import org.najot.magazinproject.mapper.ProductPriceMapperImpl;
 import org.najot.magazinproject.repository.CategoryRepository;
 import org.najot.magazinproject.repository.MeasurementRepository;
 import org.najot.magazinproject.repository.ProductRepository;
-import org.najot.magazinproject.service.ProductService;
+import org.najot.magazinproject.service.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
 
 import java.util.List;
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ServiceAll<ProductDTO> {
     @Autowired
      private ProductRepository repository;
     @Autowired
@@ -23,18 +21,19 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository categoryRepository;
     @Autowired
     private MeasurementRepository measurementRepository;
+
     @Override
-    public ProductDTO getProductById(Long id) {
+    public ProductDTO getById(Long id) {
         return mapper.toDTO(repository.getReferenceById(id));
     }
 
     @Override
-    public List<ProductDTO> getAllProduct() {
+    public List<ProductDTO> getAll() {
         return mapper.toDTOs(repository.findAll());
     }
 
     @Override
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductDTO create(ProductDTO productDTO) {
         return mapper
                 .toDTO(repository
                         .save(mapper
@@ -42,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+    public ProductDTO update(Long id, ProductDTO productDTO) {
         Product product=repository.getReferenceById(id);
         product.setId(productDTO.getId());
         product.setName(productDTO.getName());
@@ -53,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
         return mapper.toDTO(product);
     }
     @Override
-    public void deleteproductById(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }

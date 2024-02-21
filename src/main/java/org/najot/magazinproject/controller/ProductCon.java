@@ -1,7 +1,8 @@
 package org.najot.magazinproject.controller;
 
 import org.najot.magazinproject.dto.ProductDTO;
-import org.najot.magazinproject.service.ProductService;
+import org.najot.magazinproject.service.ServiceAll;
+import org.najot.magazinproject.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +12,25 @@ import java.util.List;
 @RequestMapping("/api/Product")
 public class ProductCon {
     @Autowired
-    private ProductService service;
+    private ProductServiceImpl service;
     @GetMapping("/{id}")
     ProductDTO getProductById(@PathVariable Long id){
-        return service.getProductById(id);
+        return service.getById(id);
     }
     @GetMapping()
     List<ProductDTO> getAllProduct(){
-        return service.getAllProduct();
+        return service.getAll();
     }
     @PostMapping()
     ProductDTO createProduct(@RequestBody ProductDTO dto){
-        return service.createProduct(dto);
+        return service.create(dto);
     }
     @PutMapping("/{id}")
     ProductDTO updateProduct(@PathVariable Long id,@RequestBody ProductDTO dto){
-        return service.updateProduct(id, dto);
+        return service.update(id, dto);
     }
     @DeleteMapping("/{id}")
     void deleteProductById(@PathVariable Long id){
-        service.deleteproductById(id);
+        service.deleteById(id);
     }
 }
